@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import * as React from 'react';
+import {render} from 'react-dom';
+import ToDoSpace from './components/ToDoSpace';
+import AddTask from './components/AddTask';
+import Footer from './components/Footer';
+let s = [];
+
+if (localStorage.length === 0) {
+ 
+  localStorage.setItem("ids", 0);
+
+  localStorage.setItem("todo", JSON.stringify(s));
+}
+window.onload = (event) => {
+  App();
+};
 function App() {
+  let storedtodo = JSON.parse(localStorage.getItem("todo"));
+  var v={ id: 1, task: "ddd",done:true };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="title">
+        <h1>To Do List</h1>
+      </div>
+      <div className="componant">
+      
+      <AddTask />
+      </div>
+      <hr></hr>
+
+      <div>
+        <ToDoSpace displaytodo={storedtodo} />
+      </div>
+
+      <hr></hr>
+      <Footer storedtodo={storedtodo}/>
     </div>
   );
 }
-
 export default App;
